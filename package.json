@@ -1,0 +1,40 @@
+{
+  "name": "vue-ts-library-boilerplate",
+  "version": "0.1.0",
+  "private": true,
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "dev:client": "NODE_ENV=development webpack -w",
+    "dev:server": "nodemon ./server/index.js",
+    "build": "rm -r lib && NODE_ENV=production webpack -p"
+  },
+  "license": "Apache-2.0",
+  "dependencies": {
+    "express": "^4.16.4",
+    "vue": "2.5.17",
+    "vue-class-component": "6.0.0",
+    "vue-property-decorator": "7.2.0",
+    "vue-router": "3.0.1",
+    "vue-server-renderer": "2.5.17",
+    "vue-template-compiler": "^2.5.17"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "5.2.0",
+    "css-loader": "1.0.0",
+    "dotenv-webpack": "1.5.7",
+    "html-loader": "0.5.5",
+    "html-webpack-plugin": "3.2.0",
+    "nodemon": "^1.18.4",
+    "ts-loader": "5.2.2",
+    "tslint": "5.11.0",
+    "tslint-config-prettier": "1.15.0",
+    "tslint-plugin-prettier": "2.0.0",
+    "typescript": "3.1.3",
+    "vue-loader": "15.4.2",
+    "webpack": "4.20.1",
+    "webpack-cli": "3.1.2",
+    "webpack-dev-server": "3.1.9",
+    "webpack-merge": "4.1.4"
+  }
+}
