@@ -1,12 +1,13 @@
 
-const {resolve } = require('path')
-const { smart } = require('webpack-merge');
+const { resolve } = require('path')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const devMode = process.env.NODE_ENV === 'development'
-const config = devMode ? require('./webpack.dev.config') : require('./webpack.prod.config');
 
-const common = {
+const base = {
   target: 'node',
+  mode:  devMode ? 'development' : 'production',
+  devtool: devMode ? 'inline-source-map': false,
   module: {
     rules: [
       {
@@ -15,15 +16,15 @@ const common = {
         use: [{
           loader: 'vue-loader',
           options: {
+            compilerOptions: {
+              preserveWhitespace: false
+            },
             loaders: {
-              // Since sass-loader (weirdly) has SCSS as its default parse mode, we map
-              // the "scss" and "sass" values for the lang attribute to the right configs here.
-              // other preprocessors should work out of the box, no loader config like this necessary.
               'scss': 'vue-style-loader!css-loader!sass-loader',
               'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
+              'styl(us)': 'vue-style-loader!css-loader!sass-loader!stylus-loader?indentedSyntax',
             }
           }
-          // other vue-loader options go here
         }]
       },
       {
@@ -35,6 +36,22 @@ const common = {
             appendTsSuffixTo: [/\.vue$/],
           }
         }]
+      },
+      {
+        test: /\.styl(us)?$/,
+        use: devMode
+          ? ['vue-style-loader', 'css-loader', 'stylus-loader']
+          : ExtractTextPlugin.extract({
+              use: [
+                {
+                  loader: 'css-loader',
+                  options: { minimize: true }
+                },
+                'stylus-loader'
+              ],
+              fallback: 'vue-style-loader'
+            })
+
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -55,7 +72,13 @@ const common = {
       '@': resolve(__dirname, 'client'),
     }
   },
-  plugins: [ new VueLoaderPlugin() ]
+  plugins: [
+    new Dotenv({
+      path: devMode ? 'development.env' : 'production.env',
+      safe: false
+    }),
+    new VueLoaderPlugin()
+  ]
 }
 
-module.exports = smart(common, config);
+module.exports = base;
