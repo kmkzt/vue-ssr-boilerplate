@@ -1,7 +1,9 @@
 
 const { resolve } = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+const { extract } = require('extract-text-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
+const Dotenv = require('dotenv-webpack')
 const devMode = process.env.NODE_ENV === 'development'
 
 const base = {
@@ -22,7 +24,7 @@ const base = {
             loaders: {
               'scss': 'vue-style-loader!css-loader!sass-loader',
               'sass': 'vue-style-loader!css-loader!sass-loader?indentedSyntax',
-              'styl(us)': 'vue-style-loader!css-loader!sass-loader!stylus-loader?indentedSyntax',
+              'styl(us)': 'vue-style-loader!css-loader!sass-loader!stylus-loader',
             }
           }
         }]
@@ -34,24 +36,25 @@ const base = {
           loader: 'ts-loader',
           options: {
             appendTsSuffixTo: [/\.vue$/],
+            // configFile: 'tsconfig.app.json'
           }
         }]
       },
       {
         test: /\.styl(us)?$/,
-        use: devMode
-          ? ['vue-style-loader', 'css-loader', 'stylus-loader']
-          : ExtractTextPlugin.extract({
-              use: [
-                {
-                  loader: 'css-loader',
-                  options: { minimize: true }
-                },
-                'stylus-loader'
-              ],
-              fallback: 'vue-style-loader'
-            })
-
+        use: ['vue-style-loader', 'css-loader', 'stylus-loader']
+        // use: devMode
+        //   ? ['vue-style-loader', 'css-loader', 'stylus-loader']
+        //   : extract({
+        //       use: [
+        //         {
+        //           loader: 'css-loader',
+        //           options: { minimize: true }
+        //         },
+        //         'stylus-loader'
+        //       ],
+        //       fallback: 'vue-style-loader'
+        //     })
       },
       {
         test: /\.(png|jpg|gif|svg)$/,
@@ -69,7 +72,7 @@ const base = {
     extensions: ['.ts', '.tsx', '.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      '@': resolve(__dirname, 'client'),
+      '@': resolve(__dirname, 'app'),
     }
   },
   plugins: [
@@ -77,7 +80,8 @@ const base = {
       path: devMode ? 'development.env' : 'production.env',
       safe: false
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new FriendlyErrorsWebpackPlugin()
   ]
 }
 

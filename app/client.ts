@@ -1,6 +1,5 @@
-import Vue from 'vue'
-import { createApp } from '@/'
+import { createApp } from '.'
 
-const { app } = createApp()
+const { app, store, router } = createApp()
 
 app.$mount('#app')

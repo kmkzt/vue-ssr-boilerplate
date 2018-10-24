@@ -6,10 +6,12 @@ const About = () => import('@/pages/About')
 
 const routes: RouteConfig[] = [
   {
+    name: 'Top',
     path: '/',
     component: Top
   },
   {
+    name: 'About',
     path: '/about',
     component: About
   }
@@ -17,10 +19,9 @@ const routes: RouteConfig[] = [
 
 Vue.use(Router)
 
-const router: Router = new Router({
+export const router = new Router({
   mode: 'history',
   fallback: true,
+  base: process.env.BASE_URL,
   routes
 })
-
-export router

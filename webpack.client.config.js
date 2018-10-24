@@ -6,7 +6,7 @@ const base = require('./webpack.config.js')
 
 const config = {
   entry: {
-    client: resolve('app', 'client.ts'),
+    client: resolve(__dirname, 'app', 'client.ts'),
     vendor: [
       'es6-promise',
       'vue',

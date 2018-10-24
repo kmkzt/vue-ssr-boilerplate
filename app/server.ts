@@ -1,7 +1,3 @@
-import Vue from 'vue'
-import { main } from '@/'
+import { createApp } from '@/'
 
-const app = new Vue({
-  el: '#app',
-  ...main
-})
+const {app, store, router} = createApp()

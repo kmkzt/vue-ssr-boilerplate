@@ -4,16 +4,29 @@
     "outDir": "./server/",
     "sourceMap": true,
     "strict": true,
+    "target": "esnext",
     "module": "esnext",
     "lib": ["es2017", "dom"],
+    "jsx": "preserve",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "importHelpers": true,
+    "esModuleInterop": true,
     "moduleResolution": "node",
-    "target": "es5",
     "experimentalDecorators": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noImplicitThis": true,
     "paths": {
-      "@*": ["client*"],
+      "@*": ["app*"],
     },
+    "types": [
+      "node"
+    ],
   },
   "include": [
-    "./client/**/*"
+    "./app/**/*"
+  ],
+  "exclude": [
+    "node_modules"
   ]
 }
