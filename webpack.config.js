@@ -1,6 +1,5 @@
 
 const { resolve } = require('path')
-const { extract } = require('extract-text-webpack-plugin')
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const FriendlyErrorsWebpackPlugin = require('friendly-errors-webpack-plugin');
 const Dotenv = require('dotenv-webpack')
@@ -43,18 +42,6 @@ const base = {
       {
         test: /\.styl(us)?$/,
         use: ['vue-style-loader', 'css-loader', 'stylus-loader']
-        // use: devMode
-        //   ? ['vue-style-loader', 'css-loader', 'stylus-loader']
-        //   : extract({
-        //       use: [
-        //         {
-        //           loader: 'css-loader',
-        //           options: { minimize: true }
-        //         },
-        //         'stylus-loader'
-        //       ],
-        //       fallback: 'vue-style-loader'
-        //     })
       },
       {
         test: /\.(png|jpg|gif|svg)$/,

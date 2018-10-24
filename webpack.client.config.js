@@ -1,5 +1,5 @@
 
-const { join, resolve } = require('path')
+const { resolve } = require('path')
 const webpack = require('webpack')
 const { smart } = require('webpack-merge')
 const base = require('./webpack.config.js')
@@ -17,8 +17,7 @@ const config = {
   },
   output: {
     filename: '[name].js',
-    path: resolve(__dirname, 'server' ,'app'),
-    libraryTarget: 'commonjs2',
+    path: resolve(__dirname, 'server' ,'app')
   },
   plugins: [
     new webpack.DefinePlugin({
