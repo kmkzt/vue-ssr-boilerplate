@@ -2,11 +2,10 @@ const Vue = require('vue')
 const server = require('express')()
 const { createRenderer } = require('vue-server-renderer')
 const { readFileSync } = require('fs')
-const { main } = require(__dirname + '/app/client.js')
+const { app } = require(__dirname + '/app/server.js')
 
-console.log(main.router)
+console.log(app)
 server.get('*', (req, res) => {
-  const app = new Vue(main)
   const renderer = createRenderer({
     template: readFileSync(__dirname + '/index.template.html', 'utf-8')
   })

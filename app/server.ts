@@ -1,3 +1,3 @@
 import { createApp } from '@/'
 
-const {app, store, router} = createApp()
+export const {app, store, router} = createApp()
