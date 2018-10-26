@@ -3,7 +3,7 @@ const { resolve } = require('path')
 const webpack = require('webpack')
 const { smart } = require('webpack-merge')
 const base = require('./webpack.config.js')
-
+const VueSSRClientPlugin = require('vue-server-renderer/client-plugin')
 const config = {
   entry: {
     client: resolve(__dirname, 'app', 'client.ts'),
@@ -22,6 +22,9 @@ const config = {
   plugins: [
     new webpack.DefinePlugin({
       'process.env.VUE_ENV': '"client"'
+    }),
+    new VueSSRClientPlugin({
+      filename: 'client.json'
     })
   ]
 };

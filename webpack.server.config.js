@@ -2,7 +2,7 @@ const { resolve } = require('path')
 const { DefinePlugin }= require('webpack')
 const { smart } = require('webpack-merge')
 const base = require('./webpack.config.js')
-// const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
+const VueSSRServerPlugin = require('vue-server-renderer/server-plugin')
 
 const config = {
   target: 'node',
@@ -19,7 +19,9 @@ const config = {
     new DefinePlugin({
       'process.env.VUE_ENV': 'server'
     }),
-    // new VueSSRServerPlugin() 最適化
+    new VueSSRServerPlugin({
+      filename: 'server.json'
+    })
   ]
 }
 
